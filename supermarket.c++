@@ -42,7 +42,7 @@ private :
     float price ;
     string name ;
     int quantity ;
-    string expiryDate;
+    string expiryDate ;
 ///////////////////////////////////////////////////
 public :
     product (string n = "" , float p = 0 , int b = 0 , int q = 0 , string e = "")
@@ -324,7 +324,7 @@ private :
             else
             {
                 BSTNode* temp = minValueNode(node->right);
-                product successorCopy = temp->item; // copy successor
+                product successorCopy = temp->item; 
                 node->item = successorCopy;
                 node->right = removeNodeByBarcode(node->right, successorCopy.getBarcode(), found, removedProduct);
                 return node;
@@ -648,7 +648,6 @@ public :
 
     bool isempty () const { return (head == nullptr); }
 ///////////////////////////////////////////////////   
-
     void add_to_cart (product* item , int q)
     {
         if (!item || q <= 0) return;
@@ -666,7 +665,7 @@ public :
         }
 
         cart_node* newNode = new cart_node(*item , q);
-///////////////////////////////////////////////////   
+
         if (isempty())
         {
             head = newNode ;
@@ -696,7 +695,7 @@ public :
         {
             current = current->getNext();
         }
-///////////////////////////////////////////////////   
+
         if (current == nullptr)
         {
             cout << "Item not found in cart.\n";
@@ -716,7 +715,7 @@ public :
             cout << "Item removed from cart.\n";
             return;
         }
-///////////////////////////////////////////////////           
+
         else if (current == tail)
         {
             tail = current->getPrev();
@@ -730,7 +729,7 @@ public :
             cout << "Item removed from cart.\n";
             return;
         }
-///////////////////////////////////////////////////           
+
         else
         {
             cart_node* prevNode = current->getPrev();
@@ -757,10 +756,10 @@ public :
         {
             const product* item = current->getItem();
             cout << "• " << item->getName()
-                 << " | Price: $" << fixed << setprecision(2) << item->getPrice()
-                 << " | Barcode: " << item->getBarcode()
-                 << " | Qty: " << current->getQuantity()
-                 << " | Total: $" << fixed << setprecision(2) << (item->getPrice() * current->getQuantity()) << endl;
+                 << " | Price : $" << fixed << setprecision(2) << item->getPrice()
+                 << " | Barcode : " << item->getBarcode()
+                 << " | Qty : " << current->getQuantity()
+                 << " | Total : $" << fixed << setprecision(2) << (item->getPrice() * current->getQuantity()) << endl;
             current = current->getNext();
         }
         cout << "=====================\n";
@@ -809,7 +808,6 @@ public :
 
         head = nullptr;
         tail = nullptr;
-        cout << "Cart cleared successfully.\n";
     }
 ///////////////////////////////////////////////////   
     float total_price () const
@@ -981,7 +979,7 @@ private:
         frontIndex = 0;
         rearIndex = size;
 
-        cout << "[Queue Resized] New capacity: " << capacity << endl;
+        cout << "[Queue Resized] New capacity : " << capacity << endl;
     }
 
 public :
@@ -1070,8 +1068,8 @@ public :
             int index = (frontIndex + i) % capacity;
             if (queueArray[index])
             {
-                cout << "[" << (i+1) << "] Customer ID: " << queueArray[index]->getID()
-                     << " | Items in cart: ";
+                cout << "[" << (i+1) << "] Customer ID : " << queueArray[index]->getID()
+                     << " | Items in cart : ";
                 const linked_list* cart = queueArray[index]->getCart();
                 if (cart->isempty()) {
                     cout << "Empty";
@@ -1224,16 +1222,11 @@ public :
 ///////////////////////////////////////////////////   
     void addDefaultProducts()
     {
-        // منتجات سوبر ماركت حقيقية
-        add_Product("Milk"   , 50.0f , 101 , 130  , "2025-12-31" , false);
-        add_Product("Bread"  , 10.0f , 102 , 100  , "2025-12-19" , false);
-        add_Product("Eggs"   , 20.0f , 103 , 150  , "2026-01-01" , false);
-        add_Product("Rice"   , 30.0f , 104 , 180  , "2026-06-30" , false);
-        add_Product("Sugar"  , 40.0f , 105 , 170  , "2026-03-15" , false);
-
-        cout << "\n══════════════════════════════════════════\n";
-        cout << "  5 Default Products Added Successfully!\n";
-        cout << "══════════════════════════════════════════\n";
+        add_Product("Milk "   , 50.0f , 101 , 130  , "2025-12-31" , false);
+        add_Product("Bread"   , 10.0f , 102 , 100  , "2025-12-19" , false);
+        add_Product("Eggs "   , 20.0f , 103 , 150  , "2026-01-01" , false);
+        add_Product("Rice "   , 30.0f , 104 , 180  , "2026-06-30" , false);
+        add_Product("Sugar"   , 40.0f , 105 , 170  , "2026-03-15" , false);
     }
 
     ActionStack* getActionHistory() { return actionHistory; }
@@ -1371,7 +1364,7 @@ public :
         }
         cout << "\n✗ Product not found.\n";
     }
-///////////////////////////////////////////////////   
+    ///////////////////////////////////////////////////   
     void delete_Product(int barcode , bool record = true)
     {
         if (elements == 0)
@@ -1518,7 +1511,7 @@ public :
                 totalProducts++;
             }
         }
-        cout << "Total Products: " << totalProducts << endl;
+        cout << "Total Products : " << totalProducts << endl;
     }
 ///////////////////////////////////////////////////   
     product* findProduct(int barcode)
@@ -1673,23 +1666,23 @@ void increaseQuantity(int barcode, int qty)
 
         Action a = actionHistory->peek(); // look first
         cout << "\n=== Undo Last Action ===\n";
-        cout << "Action Type: " << a.type << endl;
+        cout << "Action Type : " << a.type << endl;
 ///////////////////////////////////////////////////   
         if (a.type == "add")
         {
-            cout << "Undoing: Add product '" << a.item.getName() << "'\n";
+            cout << "Undoing : Add product '" << a.item.getName() << "'\n";
         }
         else if (a.type == "delete")
         {
-            cout << "Undoing: Delete product '" << a.item.getName() << "'\n";
+            cout << "Undoing : Delete product '" << a.item.getName() << "'\n";
         }
         else if (a.type == "edit")
         {
-            cout << "Undoing: Edit product '" << a.item.getName() << "'\n";
+            cout << "Undoing : Edit product '" << a.item.getName() << "'\n";
         }
         else if (a.type.find("cart") != string::npos)
         {
-            cout << "Undoing: Cart operation\n";
+            cout << "Undoing : Cart operation\n";
         }
 ///////////////////////////////////////////////////   
         cout << "Enter 'YES' to confirm undo: ";
@@ -1710,7 +1703,7 @@ void increaseQuantity(int barcode, int qty)
             if (removeProductNoRecord(a.item.getBarcode())) {
                 cout << "✓ Undo Add -> Product removed.\n";
             } else {
-                cout << "✗ Error: Product not found for undo add.\n";
+                cout << "✗ Error : Product not found for undo add.\n";
             }
         }
 
@@ -1719,7 +1712,7 @@ void increaseQuantity(int barcode, int qty)
             if (addProductNoRecord(a.item)) {
                 cout << "✓ Undo Delete -> Product restored.\n";
             } else {
-                cout << "✗ Error: Could not restore product for undo delete.\n";
+                cout << "✗ Error : Could not restore product for undo delete.\n";
             }
         }
 ///////////////////////////////////////////////////   
@@ -1741,7 +1734,7 @@ void increaseQuantity(int barcode, int qty)
             
             else 
             {
-                cout << "✗ Error: Product not found for undo edit.\n";
+                cout << "✗ Error : Product not found for undo edit.\n";
             }
         }
 ///////////////////////////////////////////////////           
@@ -1757,7 +1750,7 @@ void increaseQuantity(int barcode, int qty)
             
             else 
             {
-                cout << "✗ Error: Customer not found for undo cart add.\n";
+                cout << "✗ Error : Customer not found for undo cart add.\n";
             }
         }
         
@@ -1780,13 +1773,13 @@ void increaseQuantity(int barcode, int qty)
                     reduceQuantity(a.item.getBarcode(), a.oldQty);
                     cout << "✓ Undo Cart Remove -> restored to customer " << a.customerID << "\n";
                 } else {
-                    cout << "✗ Error: Product not found for undo cart remove.\n";
+                    cout << "✗ Error : Product not found for undo cart remove.\n";
                 }
             } 
             
             else 
             {
-                cout << "✗ Error: Customer not found for undo cart remove.\n";
+                cout << "✗ Error : Customer not found for undo cart remove.\n";
             }
         }
 ///////////////////////////////////////////////////           
@@ -1799,7 +1792,7 @@ void increaseQuantity(int barcode, int qty)
                 reduceQuantity(a.item.getBarcode(), a.oldQty);
                 cout << "✓ Undo Guest Cart Remove -> item restored\n";
             } else {
-                cout << "✗ Error: Product not found for undo guest cart remove.\n";
+                cout << "✗ Error : Product not found for undo guest cart remove.\n";
             }
         }
 ///////////////////////////////////////////////////           
@@ -1825,7 +1818,7 @@ void increaseQuantity(int barcode, int qty)
             
             else 
             {
-                cout << "✗ Error: Customer not found for undo cart edit.\n";
+                cout << "✗ Error : Customer not found for undo cart edit.\n";
             }
         }
 ///////////////////////////////////////////////////           
@@ -1865,7 +1858,7 @@ void increaseQuantity(int barcode, int qty)
             
             else if (c == nullptr) 
             {
-                cout << "✗ Error: Customer not found for undo cart clear.\n";
+                cout << "✗ Error : Customer not found for undo cart clear.\n";
             }
         }
 ///////////////////////////////////////////////////           
@@ -1888,10 +1881,12 @@ void increaseQuantity(int barcode, int qty)
 
         else
         {
-            cout << "Unknown action type: " << a.type << "\n";
-  }
-}
+            cout << "Unknown action type : " << a.type << "\n";
+        }
+    }
 };
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // ============ Display Functions ============
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1969,10 +1964,9 @@ void displayCustomerQueueMenu()
     cout << "[1] ➕  Add Customer to Queue\n";
     cout << "[2] ⏭  Serve Next Customer\n";
     cout << "[3] 👁  Display Customers in Queue\n";
-    cout << "[4] ↩  Undo Last Action\n";
-    cout << "[5] 🔙  Back to Main Menu\n";
+    cout << "[4] 🔙  Back to Main Menu\n";
     cout << "══════════════════════════════════════════════\n";
-    cout << "Enter your choice [1-5] : ";
+    cout << "Enter your choice [1-4] : ";
 }
 ///////////////////////////////////////////////////   
 void displayGuestCartMenu()
@@ -2016,10 +2010,14 @@ void productManagement(product_manger& manager, CustomerQueue& customerQueue, li
                 break;
 
             case 3 :
+                manager.display_Products();
+                cout << "-------------------\n\n";
                 manager.interactive_Product("update");
                 break;
 
             case 4 :
+                manager.display_Products();
+                cout << "-------------------\n\n";
                 manager.interactive_Product("delete");
                 break;
 
@@ -2063,9 +2061,13 @@ void customerCartManagement(product_manger& manager, CustomerQueue& customerQueu
         {
             case 1 :
             {
-                int barcode, quantity, customerID;
+                int barcode , quantity , customerID;
+                
                 cout << "Enter customer ID : ";
                 cin  >> customerID;
+                
+                manager.display_Products();
+                cout << "-------------------\n\n";
 
                 cout << "Enter barcode to add to cart : ";
                 cin  >> barcode;
@@ -2128,15 +2130,12 @@ void customerCartManagement(product_manger& manager, CustomerQueue& customerQueu
                 break;
             }
 ///////////////////////////////////////////////////   
-            case 3:
+            case 3 :
             {
                 int cid, barcode, newQty;
                 cout << "Enter customer ID : ";
                 cin  >> cid;
-                cout << "Enter barcode to update quantity : ";
-                cin  >> barcode;
-                cout << "Enter new quantity : ";
-                cin  >> newQty;
+                
 
                 Customer* c = customerQueue.findCustomerByID(cid);
                 if(c == nullptr)
@@ -2144,6 +2143,17 @@ void customerCartManagement(product_manger& manager, CustomerQueue& customerQueu
                     cout << "✗ Customer not found.\n";
                     break;
                 }
+                
+                c->displayCart();
+                cout << "Current Total : $" << fixed << setprecision(2)
+                     << c->getTotalPrice()  << endl;
+
+                
+                
+                cout << "Enter barcode to update quantity : ";
+                cin  >> barcode;
+                cout << "Enter new quantity : ";
+                cin  >> newQty;
 
                 int oldQty = c->getCartItemQuantity(barcode);
                 if(oldQty == 0)
@@ -2176,10 +2186,8 @@ void customerCartManagement(product_manger& manager, CustomerQueue& customerQueu
             case 4 :
             {
                 int cid, barcode;
-                cout << "Enter customer ID: ";
+                cout << "Enter customer ID : ";
                 cin  >> cid;
-                cout << "Enter barcode to remove from cart : ";
-                cin  >> barcode;
 
                 Customer* c = customerQueue.findCustomerByID(cid);
                 if(c == nullptr)
@@ -2187,6 +2195,13 @@ void customerCartManagement(product_manger& manager, CustomerQueue& customerQueu
                     cout << "✗ Customer not found.\n";
                     break;
                 }
+                
+                c->displayCart();
+                cout << "Current Total : $" << fixed << setprecision(2)
+                     << c->getTotalPrice() << endl;
+                
+                cout << "Enter barcode to remove from cart : ";
+                cin  >> barcode;
 
                 int oldQty = c->getCartItemQuantity(barcode);
                 if(oldQty == 0)
@@ -2197,7 +2212,7 @@ void customerCartManagement(product_manger& manager, CustomerQueue& customerQueu
 
                 c->removeFromCart(barcode);
                 manager.removeFromCartWithUndo(barcode, oldQty, cid);
-                cout << "✓ Item removed from cart. " << oldQty << " units returned to stock.\n";
+                cout << oldQty << " units returned to stock.\n";
                 break;
             }
 ///////////////////////////////////////////////////   
@@ -2294,6 +2309,7 @@ void customerQueueManagement(CustomerQueue& customerQueue, product_manger& manag
                 if(nextCustomer == nullptr)
                 {
                     cout << "No customers in queue.\n";
+                    break;
                 }
 
                 else
@@ -2306,9 +2322,10 @@ void customerQueueManagement(CustomerQueue& customerQueue, product_manger& manag
                     {
                         cout << "Items Purchased :\n";
                         nextCustomer->displayCart();
-                        cout << "\nTotal Price: $" << fixed << setprecision(2) << nextCustomer->getTotalPrice() << endl;
+                        cout << "\nTotal Price : $" << fixed << setprecision(2) << nextCustomer->getTotalPrice() << endl;
                         cout << "Thank you for your purchase!\n";
                     }
+                    
                     else
                     {
                         cout << "Cart is empty. No purchase made.\n";
@@ -2317,8 +2334,9 @@ void customerQueueManagement(CustomerQueue& customerQueue, product_manger& manag
                     cout << "══════════════════════════════════════════\n";
 
                     nextCustomer->clearCart();
-                    delete nextCustomer;
+                    cout << "✓ Customer's cart cleared.\n";
                     cout << "✓ Customer processed and removed from queue.\n";
+                    delete nextCustomer;
                 }
                 break;
             }
@@ -2332,17 +2350,13 @@ void customerQueueManagement(CustomerQueue& customerQueue, product_manger& manag
             }
 ///////////////////////////////////////////////////   
             case 4 :
-                manager.undoLastAction(customerQueue, guestCart);
-                break;
-///////////////////////////////////////////////////   
-            case 5 :
                 return;
 ///////////////////////////////////////////////////   
             default :
-                cout << "Invalid choice! Please enter 1-5.\n";
+                cout << "Invalid choice! Please enter 1-4.\n";
         }
 ///////////////////////////////////////////////////   
-        if (choice != 5)
+        if (choice != 4)
         {
             cout << "\nPress Enter to continue...";
             clearInput();
@@ -2365,15 +2379,19 @@ void guestCartManagement(product_manger& manager, linked_list& guestCart, Custom
             {
                 cout << "\n=== Guest Cart Contents ===\n";
                 guestCart.display_cart();
-                cout << "Total: $" << fixed << setprecision(2) << guestCart.total_price() << endl;
+                cout << "Total : $" << fixed << setprecision(2) << guestCart.total_price() << endl;
                 break;
             }
 ///////////////////////////////////////////////////   
             case 2 :
             {
                 int barcode, quantity;
+                manager.display_Products();
+                cout << "==============================\n";
+                
                 cout << "Enter barcode to add to guest cart : ";
                 cin  >> barcode;
+                
                 cout << "Enter quantity : ";
                 cin  >> quantity;
 
@@ -2395,8 +2413,9 @@ void guestCartManagement(product_manger& manager, linked_list& guestCart, Custom
 
                 else
                 {
-                    guestCart.add_to_cart(p, quantity);
-                    manager.addToGuestCartWithUndo(barcode, quantity, guestCart);
+                    guestCart.add_to_cart(p , quantity);
+                    manager.addToGuestCartWithUndo(barcode , quantity , guestCart);
+                    p->setQuantity(p->getQuantity() + quantity);
                     cout << "✓ Added " << quantity << " x " << p->getName() << " to guest cart.\n";
                 }
                 break;
@@ -2405,30 +2424,43 @@ void guestCartManagement(product_manger& manager, linked_list& guestCart, Custom
             case 3 :
             {
                 int barcode;
+                
+                guestCart.display_cart();
+                cout << "Total : $" << fixed << setprecision(2) << guestCart.total_price() << endl;
+                cout << "===============================\n";
+                
                 cout << "Enter barcode to remove from guest cart : ";
-                cin >> barcode;
+                cin  >> barcode;
 
                 int oldQty = guestCart.getItemQuantity(barcode);
                 if (oldQty == 0)
                 {
                     cout << "✗ Item not found in guest cart.\n";
                 }
+                
                 else
                 {
+                    product* p = manager.findProduct(barcode);  
                     guestCart.remove_from_cart(barcode);
-                    manager.removeFromGuestCartWithUndo(barcode, oldQty);
-                    cout << "✓ Item removed from guest cart. " << oldQty << " units returned to stock.\n";
+                    
+                    if(p) 
+                    {
+                        p->setQuantity(p->getQuantity() - oldQty); 
+                    }
+                            
+                    manager.removeFromGuestCartWithUndo(barcode , oldQty);
+                    cout << oldQty << " units returned to stock.\n";
                 }
                 break;
             }
 ///////////////////////////////////////////////////   
             case 4 :
             {
-                int barcode, newQty;
+                int barcode , newQty;
                 cout << "Enter barcode to update quantity : ";
-                cin >> barcode;
+                cin  >> barcode;
                 cout << "Enter new quantity : ";
-                cin >> newQty;
+                cin  >> newQty;
 
                 int oldQty = guestCart.getItemQuantity(barcode);
                 
@@ -2462,9 +2494,40 @@ void guestCartManagement(product_manger& manager, linked_list& guestCart, Custom
                 break;
             }
 ///////////////////////////////////////////////////   
-            case 6 :
-                manager.undoLastAction(customerQueue, guestCart);
+            case 6 : 
+            {
+                if (!guestCart.isempty()) 
+                {
+                    if (!manager.getActionHistory()->isEmpty()) 
+                    {
+                        Action last = manager.getActionHistory()->peek();
+                        if (last.type == "guest_cart_add") 
+                        {
+                            product* p = manager.findProduct(last.item.getBarcode());
+                            if (p)
+                            {
+                                p->setQuantity(p->getQuantity() - last.newQty);
+                            }
+                        }
+                        
+                        else if (last.type == "guest_cart_remove") 
+                        {
+                            product* p = manager.findProduct(last.item.getBarcode());
+                            if (p)
+                            {
+                                p->setQuantity(p->getQuantity() + last.oldQty);
+                            }
+                        }
+                    }
+                    manager.undoLastAction(customerQueue, guestCart);
+                }
+                else
+                {
+                    cout << "Guest cart is empty. Nothing to undo.\n";
+                }
                 break;
+            }
+
 
             case 7 :
                 return;
@@ -2548,5 +2611,5 @@ int main()
 
     } while (true);
 
-return 0;
+    return 0;
 }
